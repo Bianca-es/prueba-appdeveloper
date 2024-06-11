@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Inicio </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="ion-margin-start ion-margin-end ion-margin-top">
+    <ion-text>
+      <h3>Bienvenido.</h3>
+      <p>
+        A continuación, deberás ingresar cualquier número de tu elección para
+        poder visualizar el resultado esperado.
+      </p>
+    </ion-text>
+    <br />
+    <ion-form [formGroup]="formData">
+      <ion-list>
+        <ion-item>
+          <ion-input 
+            formControlName="num"
+            type="number"
+            placeholder="Ej. 10"
+            step="1"
+            min="1"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-button
+              (click)="getAllNumbers()"
+              offset="1"
+              size="5"
+              [disabled]="!formData.valid"
+              >Ver resultado</ion-button
+            >
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <ion-button fill="outline" size="5" (click)="cleanData()"
+              >Limpiar datos</ion-button
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-form>
+
+    <div class="ion-margin-top">
+      <ion-grid>
+        <ion-row>
+        <ion-col size="2" *ngFor="let number of arrayNumbers">
+          <ion-text
+            [ngClass]="{'black-color':  number.color=='negro','green-color':  number.color=='verde', 'blue-color':  number.color=='azul','red-color':  number.color=='rojo'}"
+            >{{number.val}},</ion-text
+          >
+        </ion-col>
+      </ion-row>
+      </ion-grid>
+
+    </div>
+  </div>
+</ion-content>
