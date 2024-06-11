@@ -20,6 +20,10 @@ import {
   Validators,
 } from '@angular/forms';
 
+interface Numbers {
+  value: Number;
+  color: String;
+}
 @Component({
   selector: 'app-mainpage',
   templateUrl: './mainpage.page.html',
@@ -40,29 +44,32 @@ import {
     IonItem,IonList,IonTitle,IonToolbar,IonInput
   ],
 })
-export class MainpagePage implements OnInit {
+
+export class MainpagePage  implements OnInit {
   formData!: FormGroup;
-  arrayNumbers: any[] = [];
+  allNumbers: Numbers[];
 
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+   this.allNumbers= new Array<Numbers>;
+  
+  }
 
   ngOnInit() {
-  
     this.formData = this.fb.group({
       num: [0, [Validators.required]],
     });
   }
 
   getAllNumbers() {
-    this.arrayNumbers=[];
+    this.allNumbers=[];
     for (
       let index = 0;
       index <= this.formData.controls['num'].value;
       index++
     ) {
-      this.arrayNumbers.push({
-        val: index,
+      this.allNumbers.push({
+        value: index,
         color: 'negro',
       });
     }
@@ -71,19 +78,19 @@ export class MainpagePage implements OnInit {
   }
 
   validateNumbers() {
-    for (let i = 0; i <= this.arrayNumbers.length; i++) {
+    for (let i = 0; i <= this.allNumbers.length; i++) {
       if (i % 3 == 0) {
-        this.arrayNumbers[i].color = 'verde';
+        this.allNumbers[i].color = 'verde';
       } else if (i % 5 == 0) {
-        this.arrayNumbers[i].color = 'rojo';
+        this.allNumbers[i].color = 'rojo';
       } else if (i % 7 == 0) {
-        this.arrayNumbers[i].color = 'azul';
+        this.allNumbers[i].color = 'azul';
       }
     }
   }
 
   cleanData() {
-    this.arrayNumbers=[];
+    this.allNumbers=[];
     this.formData.reset();
   }
 }
